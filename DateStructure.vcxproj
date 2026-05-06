@@ -127,13 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DulNode.c" />
-    <ClCompile Include="LNode.c" />
-    <ClCompile Include="QNode.c" />
-    <ClCompile Include="SqList.c" />
-    <ClCompile Include="SqStack.c" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="DateStructure.slnx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
