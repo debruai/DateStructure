@@ -127,10 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
     <None Include="DateStructure.slnx" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BiTree.c" />
+    <ClCompile Include="DulNode.c" />
+    <ClCompile Include="LNode.c" />
+    <ClCompile Include="QNode.c" />
+    <ClCompile Include="SqList.c" />
+    <ClCompile Include="SqStack.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SqList.h" />

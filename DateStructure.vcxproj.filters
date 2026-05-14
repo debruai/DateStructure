@@ -16,9 +16,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DateStructure.slnx" />
+    <None Include=".gitignore" />
+    <None Include=".gitattributes" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BiTree.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DulNode.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LNode.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="QNode.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SqList.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SqStack.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
