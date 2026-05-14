@@ -17,4 +17,14 @@
   <ItemGroup>
     <None Include="DateStructure.slnx" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BiTree.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SqList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

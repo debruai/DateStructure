@@ -129,6 +129,12 @@
   <ItemGroup>
     <None Include="DateStructure.slnx" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BiTree.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SqList.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
