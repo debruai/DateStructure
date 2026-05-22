@@ -249,12 +249,12 @@ int main()
     printf("======= 二叉树测试 =======\n");
 
     // 1. 创建二叉树
-    // 构建如下二叉树：
+    /* 构建如下二叉树：
     //        1
     //       / \
     //      2   3
     //     / \   \
-    //    4   5   6
+    //    4   5   6   */
 
     BiTree node4 = InitTree(4);
     BiTree node5 = InitTree(5);
@@ -311,6 +311,7 @@ int main()
     printf("\n6. 替换子树测试:\n");
     BiTree newSubTree = InitTree(7);
     BiTree oldRight = ReplaceRight(node2, newSubTree);
+    (void)oldRight;  // 原右子树不在此处使用
     printf("   替换后二叉树先序遍历: ");
     PreOrderTrav(root, VisitNode);
     printf("\n");

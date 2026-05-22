@@ -13,7 +13,7 @@ typedef int Status;
 #define ERROR 0
 #define TRUE 1
 #define FALSE 0
-#define OVERFLOW -1
+#define OVERFLOW -2
 
 // 线性表的动态分配顺序存储结构，此时ElemType为int型
 typedef struct
