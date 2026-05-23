@@ -5,6 +5,7 @@ SqStack
 DulNode
 LNode
 QNode
+String
 
 # 编译中间文件
 *.o

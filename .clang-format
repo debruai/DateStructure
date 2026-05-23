@@ -1,0 +1,58 @@
+# 基于 Google 风格
+BasedOnStyle: Google
+
+# 缩进设置
+IndentWidth: 4
+UseTab: Never
+TabWidth: 4
+
+# 大括号风格：Attach 表示大括号与语句在同一行
+BreakBeforeBraces: Attach
+
+# 允许短函数、if语句、循环在一行
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: true
+AllowShortLoopsOnASingleLine: true
+
+# 不限制行长度
+ColumnLimit: 0
+
+# 指针和引用的对齐
+PointerAlignment: Left
+ReferenceAlignment: Left
+
+# 空格设置
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesInAngles: false
+SpacesInCStyleCastParentheses: false
+SpacesInContainerLiterals: true
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+
+# 换行设置
+BinPackArguments: true
+BinPackParameters: true
+BreakBeforeBinaryOperators: None
+BreakConstructorInitializers: BeforeComma
+BreakStringLiterals: true
+
+# 注释设置
+ReflowComments: true
+SortIncludes: true
+
+# 其他重要设置
+AlignAfterOpenBracket: true
+AlignOperands: true
+AlignTrailingComments: true
+AllowAllParametersOfDeclarationOnNextLine: true
+AllowShortBlocksOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: true
+AlwaysBreakBeforeMultilineStrings: true
+IndentCaseLabels: true
+KeepEmptyLinesAtTheStartOfBlocks: true
+MaxEmptyLinesToKeep: 1
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCtorInitializerColon: true
+SpaceBeforeInheritanceColon: true
+SpaceBeforeRangeBasedForLoopColon: true
