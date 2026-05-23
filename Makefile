@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -g
 
-TARGETS = BiTree SqList SqStack DulNode LNode QNode
+TARGETS = BiTree SqList SqStack DulNode LNode QNode String
 
 all: $(TARGETS)
 
@@ -21,6 +21,9 @@ LNode: LNode.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 QNode: QNode.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+String: String.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 clean:

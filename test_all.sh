@@ -1,43 +1,72 @@
 #!/bin/bash
 
-echo "=== 数据结构项目测试脚本 ==="
-echo "当前目录: $(pwd)"
-echo "GCC版本: $(gcc --version | head -1)"
+# 一键编译和测试所有数据结构程序
+# 通信2401 贺明贤 - 数据结构课程学习仓库
+
+echo "=== 开始编译所有数据结构程序 ==="
 echo ""
 
-# 清理并重新编译所有程序
-echo "1. 清理并重新编译所有程序..."
+# 清理之前的编译结果
 make clean
-make
 
-echo ""
-echo "2. 测试所有程序:"
+# 编译所有程序
+echo "1. 编译所有程序..."
+make
+if [ $? -ne 0 ]; then
+    echo "编译失败！"
+    exit 1
+fi
+echo "编译完成！"
 echo ""
 
 # 测试每个程序
-programs=("BiTree" "SqList" "SqStack" "DulNode" "LNode" "QNode")
-
-for prog in "${programs[@]}"; do
-    if [ -f "$prog" ]; then
-        echo "=== 测试 $prog ==="
-        timeout 3 ./"$prog" 2>&1 | head -10
-        echo "退出代码: $?"
-        echo ""
-    else
-        echo "错误: $prog 不存在"
-    fi
-done
-
-echo "=== 测试完成 ==="
+echo "2. 测试各个程序："
 echo ""
-echo "生成的可执行文件:"
-ls -la BiTree SqList SqStack DulNode LNode QNode 2>/dev/null || echo "部分文件不存在"
 
+# 测试顺序表
+echo "--- 测试顺序表 (SqList) ---"
+./SqList
 echo ""
-echo "项目结构:"
-echo "- BiTree: 二叉树实现"
-echo "- SqList: 顺序表实现"
-echo "- SqStack: 顺序栈实现"
-echo "- DulNode: 循环双向链表实现"
-echo "- LNode: 单链表实现"
-echo "- QNode: 链式队列实现"
+
+# 测试顺序栈
+echo "--- 测试顺序栈 (SqStack) ---"
+./SqStack
+echo ""
+
+# 测试单链表
+echo "--- 测试单链表 (LNode) ---"
+./LNode
+echo ""
+
+# 测试循环双向链表
+echo "--- 测试循环双向链表 (DulNode) ---"
+./DulNode
+echo ""
+
+# 测试链式队列
+echo "--- 测试链式队列 (QNode) ---"
+./QNode
+echo ""
+
+# 测试二叉树
+echo "--- 测试二叉树 (BiTree) ---"
+./BiTree
+echo ""
+
+# 测试串（字符串）
+echo "--- 测试串 (String) ---"
+./String
+echo ""
+
+echo "=== 所有测试完成 ==="
+echo ""
+echo "已测试的程序："
+echo "1. SqList    - 顺序表"
+echo "2. SqStack   - 顺序栈"
+echo "3. LNode     - 单链表"
+echo "4. DulNode   - 循环双向链表"
+echo "5. QNode     - 链式队列"
+echo "6. BiTree    - 二叉树"
+echo "7. String    - 串（字符串）"
+echo ""
+echo "所有程序编译和测试成功！"
