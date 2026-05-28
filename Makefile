@@ -1,7 +1,8 @@
 CC = gcc
 CFLAGS = -Wall -g
 
-TARGETS = BiTree SqList SqStack DulNode LNode QNode String
+TARGETS = BiTree SqList SqStack DulNode LNode QNode String \
+          HFTree ThreadBiTree TreeForest HashTable Sort Search Graph
 
 all: $(TARGETS)
 
@@ -24,6 +25,27 @@ QNode: QNode.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 String: String.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+HFTree: HFTree.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+ThreadBiTree: ThreadBiTree.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+TreeForest: TreeForest.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+HashTable: HashTable.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+Sort: Sort.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+Search: Search.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+Graph: Graph.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 clean:

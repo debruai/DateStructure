@@ -6,6 +6,16 @@ DulNode
 LNode
 QNode
 String
+HFTree
+ThreadBiTree
+TreeForest
+HashTable
+Sort
+Search
+Graph
+
+# AI/编辑器 项目元文件
+REASONIX.md
 
 # 编译中间文件
 *.o

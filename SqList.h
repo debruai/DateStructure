@@ -25,41 +25,41 @@ typedef struct
 } SqList, * List;  // 顺序表类型，定义为指针类型方便实现动态分配与回收
 
 // 打印顺序表
-void PrintList(SqList* L);
+void SqPrintList(SqList* L);
 
 //------------------------------算法2.3.1---实现顺序表的初始化操作
-SqList* InitList(int size, int inc); // 返回类型：顺序表类型的指针
+SqList* SqInitList(int size, int inc); // 返回类型：顺序表类型的指针
 
 //-----------------------------算法2.3.2---实现顺序表的回收操作
-void FreeList(SqList* L);
+void SqFreeList(SqList* L);
 //------------------------------算法2.3.3---实现顺序表两个元素的比较
-Status equal_int(int a, int b);
+Status SqEqualInt(int a, int b);
 
 //------------------------------算法2.4---在顺序表L的第i个位置插入新的元素e
-Status ListInsert(SqList* L, int i, int e);
+Status SqListInsert(SqList* L, int i, int e);
 
 //-------------------------------算法2.5---在顺序表L中删除第i个元素并且返回其值，否则返回一个错误代码
-Status ListDelete(SqList* L, int i, int* e);
+Status SqListDelete(SqList* L, int i, int* e);
 
 //------------------------------算法2.6---在顺序表L中查找并返回第1个与e值满足compare()的元素的位序，找不到则返回0
-int LocateElem_Sq(SqList* L, int e, Status(*compare)(int, int));
+int SqLocateElem(SqList* L, int e, Status(*compare)(int, int));
 //-------------------------------算法2.7归并两个已经有序的顺序表，全部按非递减排序
-SqList* MergeList_Sq(SqList* La, SqList* Lb);
+SqList* SqMergeList(SqList* La, SqList* Lb);
 // 获取顺序表长度
-int ListLength(SqList* L);
+int SqListLength(SqList* L);
 
 // 判断顺序表是否为空
-Status ListEmpty(SqList* L);
+Status SqListEmpty(SqList* L);
 
 // 获取指定位置的元素
-Status GetElem(SqList* L, int i, int* e);
+Status SqGetElem(SqList* L, int i, int* e);
 
 // 修改指定位置的元素
-Status SetElem(SqList* L, int i, int e);
+Status SqSetElem(SqList* L, int i, int e);
 
 // 清空顺序表
-Status ClearList(SqList* L);
+Status SqClearList(SqList* L);
 // 查找元素的前驱
-Status PriorElem(SqList* L, int cur_e, int* pre_e);
+Status SqPriorElem(SqList* L, int cur_e, int* pre_e);
 // 查找元素的后继
-Status NextElem(SqList* L, int cur_e, int* next_e);
+Status SqNextElem(SqList* L, int cur_e, int* next_e);
