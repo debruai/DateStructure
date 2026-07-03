@@ -98,7 +98,7 @@ Status ListInsert(SqList* L, int i, int e)
         L->elem = newbase;
         L->size += L->inc;
     }
-
+    
     // 从第i-1个位置开始，后面的元素全部后移一位
     for (int j = L->len; j >= i; j--)
     {

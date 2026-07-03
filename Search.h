@@ -1,6 +1,7 @@
 #pragma once
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef int Status;
 #define OK 1
@@ -11,7 +12,7 @@ typedef int Status;
 #define INFEASIBLE -1
 
 //===============================================================
-//  静态查找表 — 顺序查找 / 折半查找
+//  静态查找表 — 顺序查找 / 折半查找 / 分块查找
 //===============================================================
 
 #define MAXSIZE 100
@@ -34,6 +35,29 @@ int BinarySearch(SSTable* ST, int key);
 
 // 折半查找（递归）
 int BinarySearchRecur(SSTable* ST, int key, int low, int high);
+
+//===============================================================
+//  分块查找（索引顺序查找）
+//===============================================================
+
+#define MAXBLOCK 20
+
+// 索引表项
+typedef struct
+{
+    int maxKey;   // 块内最大关键字
+    int start;    // 块起始位置（从1开始）
+    int count;    // 块内元素个数
+} Index;
+
+// 分块查找 — 先在索引表中确定块，再在块内顺序查找
+// ST[] — 完整记录数组（从下标1开始存）
+// ind[] — 索引表
+// key — 要查找的关键字
+// n — 记录总数
+// b — 块数
+// 返回：关键字位置（从1开始），0表示没找到
+int BlockSearch(int ST[], Index ind[], int key, int n, int b);
 
 //===============================================================
 //  二叉排序树 BST

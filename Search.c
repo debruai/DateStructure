@@ -113,6 +113,56 @@ int BinarySearchRecur(SSTable* ST, int key, int low, int high)
 }
 
 //===============================================================
+//  分块查找（索引顺序查找）
+//===============================================================
+//
+//  使用场景：
+//     数据量较大时，将数据分成若干块
+//     块内无序，块间有序（第 i 块的最大值 < 第 i+1 块的最小值）
+//     建立索引表，每块记录最大关键字和起始位置
+//
+//  查找过程：
+//     1. 在索引表中查找，确定 key 可能所在的块
+//     2. 在该块内顺序查找
+//
+//  索引表查找方式：
+//     块数少 → 顺序查找
+//     块数多 → 折半查找（本文用顺序查找演示）
+//
+//  时间复杂度：
+//     O(log b) + O(n/b) ≈ O(√n)（b ≈ √n 时最优）
+//---------------------------------------------------------------
+int BlockSearch(int ST[], Index ind[], int key, int n, int b)
+{
+    // 第一步：在索引表中确定块
+    int blockIdx = -1;
+    for (int i = 0; i < b; i++)
+    {
+        if (key <= ind[i].maxKey)
+        {
+            blockIdx = i;  // 可能在块 i 中
+            break;
+        }
+    }
+
+    if (blockIdx == -1) return 0;  // 比所有块的最大值还大 → 不存在
+
+    // 第二步：在块内顺序查找
+    int start = ind[blockIdx].start;
+    int end = start + ind[blockIdx].count - 1;
+
+    for (int i = start; i <= end && i <= n; i++)
+    {
+        if (ST[i] == key)
+        {
+            return i;  // 找到，返回位置
+        }
+    }
+
+    return 0;  // 没找到
+}
+
+//===============================================================
 //  二叉排序树 BST
 //===============================================================
 //
@@ -599,6 +649,49 @@ int main()
     printf("\n3. 折半查找（递归）：\n");
     pos = BinarySearchRecur(&ST, 37, 1, ST.length);
     printf("   查找 37，位置：%d\n", pos);
+
+    //----------------------------------------
+    //  4. 分块查找
+    //----------------------------------------
+    printf("\n4. 分块查找（索引顺序查找）：\n");
+
+    // 构造分块查找的测试数据：
+    // 共 15 个元素，分成 3 块，每块 5 个元素
+    // 第1块：最大值 22，第2块：最大值 55，第3块：最大值 88
+    // 块内无序，块间有序
+    int blockData[] = {0,  // 下标从1开始
+        14, 8, 22, 3, 17,       // 第1块，max=22
+        33, 45, 28, 55, 41,     // 第2块，max=55
+        67, 79, 60, 88, 73      // 第3块，max=88
+    };
+    int totalN = 15;
+    int blockCnt = 3;
+
+    Index indexTable[MAXBLOCK] = {
+        {22, 1, 5},   // 第1块：max=22, 起始位置1, 5个元素
+        {55, 6, 5},   // 第2块：max=55, 起始位置6, 5个元素
+        {88, 11, 5}   // 第3块：max=88, 起始位置11, 5个元素
+    };
+
+    printf("   数据（共%d个元素，分%d块）：\n", totalN, blockCnt);
+    printf("   块1（下标1-5）：");
+    for (int i = 1; i <= 5; i++) printf("%d ", blockData[i]);
+    printf("  max=%d\n", indexTable[0].maxKey);
+    printf("   块2（下标6-10）：");
+    for (int i = 6; i <= 10; i++) printf("%d ", blockData[i]);
+    printf("  max=%d\n", indexTable[1].maxKey);
+    printf("   块3（下标11-15）：");
+    for (int i = 11; i <= 15; i++) printf("%d ", blockData[i]);
+    printf("  max=%d\n", indexTable[2].maxKey);
+
+    int bpos = BlockSearch(blockData, indexTable, 55, totalN, blockCnt);
+    printf("   查找 55，位置：%d\n", bpos);
+    bpos = BlockSearch(blockData, indexTable, 14, totalN, blockCnt);
+    printf("   查找 14，位置：%d\n", bpos);
+    bpos = BlockSearch(blockData, indexTable, 73, totalN, blockCnt);
+    printf("   查找 73，位置：%d\n", bpos);
+    bpos = BlockSearch(blockData, indexTable, 99, totalN, blockCnt);
+    printf("   查找 99，位置：%d（0表示没找到）\n", bpos);
 
     //========================================
     //  第二部分：二叉排序树 BST

@@ -8,28 +8,7 @@
 // 完全二叉树的性质：对于完全二叉树，如果结点总数为n，则其深度为log2(n)+1；对于完全二叉树，如果结点总数为n，则其叶子结点数为(n+1)/2
 // 
 // 满二叉树：每个结点要么没有子树，要么有两个子树，并且所有叶子结点都在同一层上
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef int Status;
-#define OK 1
-#define ERROR 0
-#define TRUE 1
-#define FALSE 0
-#define OVERFLOW -2
-#define INFEASIBLE -1
-typedef int TElemtype;
-
-// 二叉树的存储结构
-// 顺序存储：适合完全二叉树，使用数组来存储二叉树的结点，根结点存储在数组的第一个位置，左子树和右子树分别存储在根结点的下标为2*i+1和2*i+2的位置
-
-// 链式存储：适合一般二叉树，使用链表来存储二叉树的结点，每个结点包含数据域和两个指针域，分别指向左子树和右子树
-typedef struct BiTNode
-{
-    TElemtype data;  // 数据域
-    struct BiTNode* lchild;  // 左子树指针
-    struct BiTNode* rchild;  // 右子树指针
-} BiTNode, * BiTree;  // 结点类型，二叉链表指针类型
+#include "BiTree.h"
 
 // 二叉树的基本操作
 
@@ -57,7 +36,7 @@ BiTree MakeBiTree(TElemtype value, BiTree left, BiTree right)
     return T;  
 }
 
-// 3.回收某个二叉树的全部结点
+// 3.回收某个二叉树的全部结点,采用递归的方法
 BiTree FreeBiTree(BiTree T)
 {
     if (!T)
@@ -110,7 +89,7 @@ Status VisitNode(BiTNode* node)
     return OK;
 }
 
-// 获取二叉树深度
+// 获取二叉树深度，递归方法，每次调用返回左右子树中的最大深度+1
 int BiTreeDepth(BiTree T)
 {
     if (!T)
@@ -122,7 +101,7 @@ int BiTreeDepth(BiTree T)
     return (leftDepth > rightDepth ? leftDepth : rightDepth) + 1;
 }
 
-// 获取二叉树节点总数
+// 获取二叉树节点总数，递归方法，每次返回左右子树的节点树之和再+1
 int BiTreeNodeCount(BiTree T)
 {
     if (!T)
@@ -131,19 +110,19 @@ int BiTreeNodeCount(BiTree T)
     return 1 + BiTreeNodeCount(T->lchild) + BiTreeNodeCount(T->rchild);
 }
 
-// 获取二叉树叶子节点数
+// 获取二叉树叶子节点数，每次返回自身和所有子树含有的叶子节点树
 int BiTreeLeafCount(BiTree T)
 {
-    if (!T)
+    if (!T)//没有这个节点当然没有
         return 0;
 
-    if (!T->lchild && !T->rchild)  // 叶子节点
+    if (!T->lchild && !T->rchild)  // 叶子节点，左右子树指针都是null
         return 1;
 
     return BiTreeLeafCount(T->lchild) + BiTreeLeafCount(T->rchild);
 }
 
-// 查找节点
+// 查找节点，也是往下递归，查找左右子树中是否有
 BiTree FindNode(BiTree T, TElemtype e)
 {
     if (!T)
@@ -180,15 +159,15 @@ BiTree CopyBiTree(BiTree T)
 
 // 递归版本
 // 先序遍历
-Status PreOrderTrav(BiTree T, Status(*VisitNode)(BiTNode* node))
+Status PreOrderTrav(BiTree T, Status(*visit)(BiTNode* node))
 {
     if (T)
     {
-        if (VisitNode(T))  // 访问根节点
+        if (visit(T))  // 访问根节点
         {
-            if (PreOrderTrav(T->lchild, VisitNode))  // 遍历左子树
+            if (PreOrderTrav(T->lchild, visit))  // 遍历左子树
             {
-                if (PreOrderTrav(T->rchild, VisitNode))  // 遍历右子树
+                if (PreOrderTrav(T->rchild, visit))  // 遍历右子树
                 {
                     return OK;
                 }
@@ -201,15 +180,15 @@ Status PreOrderTrav(BiTree T, Status(*VisitNode)(BiTNode* node))
 }
 
 // 中序遍历
-Status InOrderTrav(BiTree T, Status(*VisitNode)(BiTNode* node))
+Status InOrderTrav(BiTree T, Status(*visit)(BiTNode* node))
 {
     if (T)
     {
-        if (InOrderTrav(T->lchild, VisitNode))  // 先遍历左子树
+        if (InOrderTrav(T->lchild, visit))  // 先遍历左子树
         {
-            if (VisitNode(T))  // 访问根节点
+            if (visit(T))  // 访问根节点
             {
-                if (InOrderTrav(T->rchild, VisitNode))  // 再遍历右子树
+                if (InOrderTrav(T->rchild, visit))  // 再遍历右子树
                 {
                     return OK;
                 }
@@ -222,15 +201,15 @@ Status InOrderTrav(BiTree T, Status(*VisitNode)(BiTNode* node))
 }
 
 // 后序遍历
-Status PostOrderTrav(BiTree T, Status(*VisitNode)(BiTNode* node))
+Status PostOrderTrav(BiTree T, Status(*visit)(BiTNode* node))
 {
     if (T)
     {
-        if (PostOrderTrav(T->lchild, VisitNode))  // 先遍历左子树
+        if (PostOrderTrav(T->lchild, visit))  // 先遍历左子树
         {
-            if (PostOrderTrav(T->rchild, VisitNode))  // 再遍历右子树
+            if (PostOrderTrav(T->rchild, visit))  // 再遍历右子树
             {
-                if (VisitNode(T))  // 最后访问根节点
+                if (visit(T))  // 最后访问根节点
                 {
                     return OK;
                 }
@@ -241,6 +220,7 @@ Status PostOrderTrav(BiTree T, Status(*VisitNode)(BiTNode* node))
     else
         return OK;
 }
+
 
 
 // 测试函数
@@ -311,7 +291,7 @@ int main()
     printf("\n6. 替换子树测试:\n");
     BiTree newSubTree = InitTree(7);
     BiTree oldRight = ReplaceRight(node2, newSubTree);
-    (void)oldRight;  // 原右子树不在此处使用
+    FreeBiTree(oldRight);  // 释放被替换掉的旧右子树
     printf("   替换后二叉树先序遍历: ");
     PreOrderTrav(root, VisitNode);
     printf("\n");

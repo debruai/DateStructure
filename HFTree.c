@@ -89,30 +89,49 @@ HFTree BuildHuffmanTree(int weights[], char data[], int n)
     }
 
     // step 2: 不断合并最小的两棵树，直到只剩一棵
-    while (nodeCount < 2 * n - 1)
+    // 现在使用更直观的条件：当有效节点数大于1时继续合并
+    while (nodeCount > 1)
     {
-        // 找出权值最小的两个节点的下标
-        // 为什么？因为要选最小的两个合并，贪心思想
-        int min1 = -1, min2 = -1;  // min1 < min2（按权值）
+        // 找出权值最小的两个有效节点的下标
+        int min1 = -1, min2 = -1;
 
-        for (int i = 0; i < nodeCount; i++)
+        // 首先找到第一个有效节点
+        for (int i = 0; i < capacity; i++)
         {
-            if (nodes[i] == NULL) continue;  // 已被合并的节点跳过
-
-            if (min1 == -1 || nodes[i]->weight < nodes[min1]->weight)
+            if (nodes[i] != NULL)
             {
-                // 找到更小的，原来的 min1 退位给 min2
+                min1 = i;
+                break;
+            }
+        }
+
+        // 找到第二个有效节点（与min1不同）
+        for (int i = min1 + 1; i < capacity; i++)
+        {
+            if (nodes[i] != NULL)
+            {
+                min2 = i;
+                break;
+            }
+        }
+
+        // 遍历所有节点，找到权值最小的两个
+        for (int i = 0; i < capacity; i++)
+        {
+            if (nodes[i] == NULL) continue;
+
+            if (nodes[i]->weight < nodes[min1]->weight)
+            {
                 min2 = min1;
                 min1 = i;
             }
-            else if (min2 == -1 || nodes[i]->weight < nodes[min2]->weight)
+            else if (i != min1 && (min2 == -1 || nodes[i]->weight < nodes[min2]->weight))
             {
                 min2 = i;
             }
         }
 
         // 用两个最小权值之和创建父节点
-        // 为什么把小的放左、大的放右？约定而已，不影响WPL
         int sumWeight = nodes[min1]->weight + nodes[min2]->weight;
         HFTree parent = CreateHFTNode(sumWeight, 0);  // 内部节点 data 设为 0
         parent->lchild = nodes[min1];  // 较小权值 → 左子树
@@ -122,12 +141,12 @@ HFTree BuildHuffmanTree(int weights[], char data[], int n)
         nodes[min1] = parent;
         nodes[min2] = NULL;
 
-        nodeCount++;  // 节点总数 +1（两个变一个）
+        nodeCount--;  // 重要：有效节点数减少1（两个合并成一个）
     }
 
     // 最后一个有效的节点就是根
     HFTree root = NULL;
-    for (int i = 0; i < nodeCount; i++)
+    for (int i = 0; i < capacity; i++)
     {
         if (nodes[i] != NULL)
         {
