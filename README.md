@@ -11,6 +11,7 @@
 ```
 DateStructure/
 ├── BiTree.c            # 二叉树（链式存储）：遍历、深度、节点计数
+├── BiTree_Analysis.md  # 二叉树算法分析笔记
 ├── SqList.c/h          # 顺序表（动态分配）：增删改查、归并
 ├── SqStack.c           # 顺序栈：Push/Pop、进制转换、括号匹配
 ├── LNode.c             # 单链表（带头结点）：增删改查、反转、归并
@@ -27,6 +28,8 @@ DateStructure/
 │                       #   Dijkstra/Floyd/拓扑排序/关键路径
 ├── Makefile            # GNU Make 构建脚本
 ├── test_all.sh         # 一键编译 + 测试所有程序
+├── BiTree_Analysis.md  # 二叉树算法分析笔记
+├── Makefile            # GNU Make 构建脚本
 └── .gitignore          # 忽略编译产物
 ```
 
@@ -137,4 +140,4 @@ git push
 
 ---
 
-*最后更新：2026-05-28*
+*最后更新：2026-06-24*
